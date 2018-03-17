@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="gray_line_color">#ffdcdcdc</color>
+    <color name="grayLineColor_night">#ff202123</color>
+    <color name="Main_text_click">#EB6100</color>
+    <color name="Main_text_unclick">#696969</color>
+    <color name="default_text">#8a000000</color>
+    <color name="light_white">#ffffd4d4</color>
+    <color name="transparent_background">#00000000</color>
+    <color name="TextColorBlack">#ff000000</color>
+    <color name="DeepBlueBackground">#ff1b69d0</color>
+    <color name="purple">#ff8c61e2</color>
+    <color name="white">#ffffffff</color>
+    <color name="gs_Red_ff0000">#ffff0000</color>
+    <color name="cv_yellow">#fffc9720</color>
+    <color name="textColorGreen13b488">#ff13b488</color>
+    <color name="ic_blue">#0069EC</color>
+    <color name="ic_gray">#BDBDBD</color>
+    <color name="deep_green">#0F9470</color>
+    <color name="GrayBackground">#fff4f4f4</color>
+    <color name="material_dark1">#ff999794</color>
+</resources>
