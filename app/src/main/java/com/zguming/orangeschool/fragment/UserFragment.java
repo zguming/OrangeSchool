@@ -85,5 +85,5 @@ public class UserFragment extends Fragment {
                 break;
         }
     }
-    
+
 }

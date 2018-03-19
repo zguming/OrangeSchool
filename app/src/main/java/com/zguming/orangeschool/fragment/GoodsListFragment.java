@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.youth.banner.Banner;
@@ -17,6 +19,9 @@ import com.zguming.orangeschool.R;
 import com.zguming.orangeschool.adapter.GoodsListAdapter;
 import com.zguming.orangeschool.bean.Goods;
 import com.zguming.orangeschool.util.GlideImageLoader;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +38,20 @@ import butterknife.Unbinder;
 
 public class GoodsListFragment extends Fragment {
     private List<Goods> goodsData = new ArrayList<>();
+    //flowlayout数据
+    private List<String> mVals=new ArrayList<>();
     Banner mBanner;
     @BindView(R.id.goods_recycler_view)
     XRecyclerView goodsRecyclerView;
     String agrs;
+    View view;
     HomeFragment parentFragment;
     Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goods_list, container, false);
+        view = inflater.inflate(R.layout.fragment_goods_list, container, false);
         unbinder = ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         agrs = bundle.getString("ARGS");
@@ -64,6 +72,8 @@ public class GoodsListFragment extends Fragment {
             goodsRecyclerView.addHeaderView(header);
         }else{
             View header= LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview_goods_header2,null);
+            initFlowlayout();
+            setFlowlayout(header);
             goodsRecyclerView.addHeaderView(header);
         }
         //传入商品数组
@@ -72,6 +82,8 @@ public class GoodsListFragment extends Fragment {
         //禁用下拉刷新和加载更多功能
         goodsRecyclerView.setPullRefreshEnabled(false);
     }
+
+
     public void initGoodsData(){
         goodsData.add(new Goods("可口可乐","3","10"));
         goodsData.add(new Goods("可口可乐","3","10"));
@@ -97,7 +109,41 @@ public class GoodsListFragment extends Fragment {
         //banner设置方法全部调用完毕时最后调用
         mBanner.start();
     }
+    public void initFlowlayout() {
+        mVals.add("分类1");
+        mVals.add("分类分类2");
+        mVals.add("分类3");
+        mVals.add("分类4");
+        mVals.add("分类5");
+        mVals.add("分类6");
 
+    }
+    private void setFlowlayout(View header) {
+        final LayoutInflater mInflater = LayoutInflater.from(getActivity());
+        final com.zhy.view.flowlayout.TagFlowLayout mFlowLayout=header.findViewById(R.id.id_flowlayout);
+        TagAdapter tagAdapter=new TagAdapter<String>(mVals)
+        {
+            @Override
+            public View getView(FlowLayout parent, int position, String s)
+            {
+                TextView tv = (TextView) mInflater.inflate(R.layout.item_flowlayout,
+                        mFlowLayout, false);
+                tv.setText(s);
+                return tv;
+            }
+        };
+        tagAdapter.setSelectedList(0);
+        mFlowLayout.setAdapter(tagAdapter);
+        mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener()
+        {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent)
+            {
+                Toast.makeText(getActivity(), mVals.get(position), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
     public static GoodsListFragment newInstance(String content) {
         Bundle args = new Bundle();
         args.putString("ARGS", content);
