@@ -28,6 +28,7 @@ import com.zguming.orangeschool.R;
 import com.zguming.orangeschool.activity.CheckBill;
 import com.zguming.orangeschool.activity.OrderDetail;
 import com.zguming.orangeschool.adapter.CategoryAdapter;
+import com.zguming.orangeschool.bean.GoodsNum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -268,6 +269,21 @@ public class HomeFragment extends Fragment {
                 Intent intent=new Intent(getActivity(),CheckBill.class);
                 getActivity().startActivity(intent);
                 break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        GoodsNum goodsNum=new GoodsNum();
+        int goodsDetailNum=goodsNum.getNum();
+        int a=Integer.valueOf(tvShoppingCartNum.getText().toString());
+        a = a + goodsDetailNum;
+        String strNum = "" + a;
+        tvShoppingCartNum.setText(strNum);
+        //判断购物车商品数量是否为0，不为0则设为可见
+        if(!(a ==0)){
+            tvShoppingCartNum.setVisibility(View.VISIBLE);
         }
     }
 }

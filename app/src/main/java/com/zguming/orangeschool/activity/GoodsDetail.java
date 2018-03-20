@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.zguming.orangeschool.bean.GoodsNum;
 import com.zguming.orangeschool.view.CustomeGridView;
 import com.zguming.orangeschool.R;
 
@@ -77,6 +78,7 @@ public class GoodsDetail extends AppCompatActivity implements AdapterView.OnItem
 
     @OnClick({R.id.iv_remove2, R.id.iv_add2})
     public void onViewClicked(View view) {
+        GoodsNum goodsNum=new GoodsNum();
         switch (view.getId()) {
             case R.id.iv_remove2:
                 String str1 = tvGoodsNum2.getText().toString();
@@ -88,6 +90,7 @@ public class GoodsDetail extends AppCompatActivity implements AdapterView.OnItem
                     ivRemove2.setVisibility(View.INVISIBLE);
                     tvGoodsNum2.setVisibility(View.INVISIBLE);
                 }
+                goodsNum.setNum(a1);
                 break;
             case R.id.iv_add2:
                 String str = tvGoodsNum2.getText().toString();
@@ -97,6 +100,7 @@ public class GoodsDetail extends AppCompatActivity implements AdapterView.OnItem
                 tvGoodsNum2.setText(strNum);
                 ivRemove2.setVisibility(View.VISIBLE);
                 tvGoodsNum2.setVisibility(View.VISIBLE);
+                goodsNum.setNum(a);
                 break;
         }
     }

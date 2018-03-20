@@ -4,14 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -46,6 +42,7 @@ public class GoodsListFragment extends Fragment {
     String agrs;
     View view;
     HomeFragment parentFragment;
+    GoodsListAdapter goodsListAdapter;
     Unbinder unbinder;
 
     @Nullable
@@ -57,7 +54,6 @@ public class GoodsListFragment extends Fragment {
         agrs = bundle.getString("ARGS");
         return view;
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -77,12 +73,11 @@ public class GoodsListFragment extends Fragment {
             goodsRecyclerView.addHeaderView(header);
         }
         //传入商品数组
-        GoodsListAdapter goodsListAdapter = new GoodsListAdapter(getActivity(), goodsData,parentFragment);
+        goodsListAdapter = new GoodsListAdapter(getActivity(), goodsData,parentFragment);
         goodsRecyclerView.setAdapter(goodsListAdapter);
         //禁用下拉刷新和加载更多功能
         goodsRecyclerView.setPullRefreshEnabled(false);
     }
-
 
     public void initGoodsData(){
         goodsData.add(new Goods("可口可乐","3","10"));
@@ -116,7 +111,6 @@ public class GoodsListFragment extends Fragment {
         mVals.add("分类4");
         mVals.add("分类5");
         mVals.add("分类6");
-
     }
     private void setFlowlayout(View header) {
         final LayoutInflater mInflater = LayoutInflater.from(getActivity());
@@ -134,12 +128,16 @@ public class GoodsListFragment extends Fragment {
         };
         tagAdapter.setSelectedList(0);
         mFlowLayout.setAdapter(tagAdapter);
+        //子分类点击事件
         mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener()
         {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent)
             {
-                Toast.makeText(getActivity(), mVals.get(position), Toast.LENGTH_SHORT).show();
+                //传入商品数组
+                goodsData.clear();
+                initGoodsData();
+                goodsListAdapter.notifyDataSetChanged();
                 return true;
             }
         });
